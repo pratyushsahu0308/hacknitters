@@ -8,6 +8,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
+import { resetCart } from '../slices/cartSlice';
 
   const Header = () => {
     const { cartItems } = useSelector((state) => state.cart);
@@ -21,6 +22,7 @@ import { logout } from '../slices/authSlice';
       try {
         await logoutApiCall().unwrap();
         dispatch(logout());
+        dispatch(resetCart());
         navigate('/login');
       } catch (error) {
         console.log(error)

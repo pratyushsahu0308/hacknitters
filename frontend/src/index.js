@@ -29,6 +29,7 @@ import ProductEditScreen from './screens/admin/ProductEditScreen';
 import UserListScreen from './screens/admin/UserListScreen';
 import UserEditScreen from './screens/admin/UserEditScreen';
 import { HelmetProvider } from 'react-helmet-async';
+// import ResumeScreen from './screens/ResumeScreen';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
         <Route path='/payment' element={<PaymentScreen />} />
         <Route path='/placeorder' element={<PlaceOrderScreen />} />
         <Route path='/profile' element={<ProfileScreen />} />
+        {/* <Route path='/resume' element={<ResumeScreen />} /> */}
       </Route>
 
       <Route path='' element={<AdminRoutes />} >
