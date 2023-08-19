@@ -94,7 +94,7 @@ const updateUserProfile = asyncHandler(async(req,res) => {
   let details = {
       from: "resumebook.medicaps@gmail.com",
       to: `${req.body.email}`,
-      subject: `Wellcome to ResumeBook ${req.body.name}`,
+      subject: `Welcome to ResumeBook ${req.body.name}`,
       text: `Your OTP for creating account on ResumeBook is  ${req.body.password}`
   }
   
