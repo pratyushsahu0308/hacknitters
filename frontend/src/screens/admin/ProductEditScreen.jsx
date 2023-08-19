@@ -7,11 +7,13 @@ import FormContainer from '../../components/FormContainer'
 import {toast} from 'react-toastify'
 import { useUpdateProductMutation, useGetProductDetailsQuery,useUploadProductImageMutation } from '../../slices/productsApiSlice'
 import Meta from '../../components/Meta'
-
+import { useSelector, useDispatch } from 'react-redux';
+import CheckoutSteps from '../../components/CheckoutSteps'
+import { TiArrowBack } from 'react-icons/ti'
 const ProductEditScreen = () => {
     const {id: productId} = useParams();
-
-const [name,setName] = useState('');
+    const { userInfo } = useSelector((state) => state.auth);
+const [name,setName] = useState(userInfo.name);
 const [price,setPrice] = useState(0);
 const [image,setImage] = useState('');
 const [brand,setBrand] = useState('');
@@ -50,10 +52,11 @@ const submitHandler = async (e) => {
         description,
     };
     const result = await updateProduct(updatedProduct);
-    if(result.error){
+    if(result.errorz){
         toast.error(result.error);
     }else {
-        toast.success('Product updated');
+        toast.success('Book updated');
+        refetch()
         navigate('/admin/productlist');
     }
 }
@@ -71,11 +74,12 @@ const uploadFileHandler = async (e) => {
 
   return (
     <>
-        <Link to='/admin/productlist' className="btn btn-light my-3">
-            Go Back
-        </Link>
+            <Link className='btn my-3' style={{fontSize:"18px",background:"#fff",color:"#0f172a",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} to='/'>
+                <TiArrowBack />
+            </Link>
     <FormContainer>
-        <h1>Edit Product</h1>
+    <CheckoutSteps step1 step2 />
+        <h1>Update Book</h1>
         {loadingUpdate && <Loader />}
 
         {isLoading? <Loader /> : (
@@ -86,59 +90,34 @@ const uploadFileHandler = async (e) => {
                 type='name'
                 placeholder='Enter name'
                 value={name}
-                onChange={(e) => setName(e.target.value)}>
+                onChange={(e) => setName(userInfo.name)}>
                 </Form.Control>
                 </Form.Group>
-                <Form.Group controlId='price' className='my-2'>
-                <Form.Label>Price</Form.Label>
-                <Form.Control 
-                type='number'
-                placeholder='Enter price'
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}>
-                </Form.Control>
-                </Form.Group>
+
                 
                 <Form.Group controlId='image' className='my-2'>
-                    <Form.Label>Image</Form.Label>
-                    <Form.Control type='text' placeholder='Enter image url' value={image} onChange={(e) => setImage}></Form.Control>
+                    <Form.Label>Image (296 X 230) recommended</Form.Label>
+                    <Form.Control type='text' placeholder='Enter image url ' value={image} onChange={(e) => setImage}></Form.Control>
                     <Form.Control type='file' label='Choose file' onChange={uploadFileHandler}></Form.Control>
                 </Form.Group>
                 {loadingUpload && <Loader />}
                 <Form.Group controlId='brand' className='my-2'>
-                <Form.Label>Brand</Form.Label>
+                <Form.Label>Headline</Form.Label>
                 <Form.Control 
                 type='text'
-                placeholder='Enter brand'
+                placeholder='Enter Headline'
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}>
                 </Form.Control>
                 </Form.Group>
-                <Form.Group controlId='countInStock' className='my-2'>
-                <Form.Label>Count In Stock</Form.Label>
-                <Form.Control 
-                type='number'
-                placeholder='Enter Count In Stock'
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}>
-                </Form.Control>
-                </Form.Group>
+                
                 <Form.Group controlId='category' className='my-2'>
-                <Form.Label>Category</Form.Label>
+                <Form.Label>Bio</Form.Label>
                 <Form.Control 
                 type='text'
-                placeholder='Enter Category'
+                placeholder='Enter Bio'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}>
-                </Form.Control>
-                </Form.Group>
-                <Form.Group controlId='description' className='my-2'>
-                <Form.Label>Description</Form.Label>
-                <Form.Control 
-                type='text'
-                placeholder='Enter Description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}>
                 </Form.Control>
                 </Form.Group>
 
@@ -146,7 +125,7 @@ const uploadFileHandler = async (e) => {
                 type='submit'
                 variant='primary'
                 className='my-2'
-                >Update</Button>
+                >Submit</Button>
             </Form>
         )}
     </FormContainer>

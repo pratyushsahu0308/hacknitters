@@ -10,6 +10,7 @@ import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 const LoginScreen = () => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -43,7 +44,7 @@ const LoginScreen = () => {
 
   return (
     <FormContainer>
-      <h1>Sign In</h1>
+      <h1 style={{color:"#0f172a"}}>Sign In</h1>
 
       <Form onSubmit={submitHandler}>
         <Form.Group className='my-2' controlId='email'>
@@ -66,7 +67,7 @@ const LoginScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button disabled={isLoading} type='submit' variant='primary'>
+        <Button disabled={isLoading} type='submit' variant='primary' style={{background:"#0f172a"}}>
           Sign In
         </Button>
 

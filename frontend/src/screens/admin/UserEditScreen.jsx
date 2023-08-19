@@ -5,7 +5,8 @@ import {Form,Button} from 'react-bootstrap'
 import Loader from '../../components/Loader'
 import FormContainer from '../../components/FormContainer'
 import {toast} from 'react-toastify'
-import { useUpdateUserMutation, useGetUserDetailsQuery } from '../../slices/usersApiSlice'
+import { useUpdateUserMutation, useGetUserDetailsQuery,useProfileMutation } from '../../slices/usersApiSlice'
+import { TiArrowBack } from 'react-icons/ti'
 
 const UserEditScreen = () => {
     const {id: userId} = useParams();
@@ -14,10 +15,9 @@ const [name,setName] = useState('');
 const [email,setEmail] = useState('');
 const [isAdmin,setIsAdmin] = useState(false);
 
-const {data:user,isLoading,refetch,error} =useGetUserDetailsQuery(userId);
+const {getUserById,data:user,isLoading,refetch,error} =useGetUserDetailsQuery(userId);
 const [updateUser,{isLoading: loadingUpdate}] = useUpdateUserMutation();
-
-
+const [updateProfile, {isLoading: loadingUpdateProfile}] = useProfileMutation();
 const navigate = useNavigate();
 
 useEffect(() => {
@@ -30,10 +30,10 @@ useEffect(() => {
 const submitHandler = async (e) => {
     e.preventDefault();
     try {
-        await updateUser({userId,name,email,isAdmin})
-        toast.success('User updated successfully')
+        await updateProfile({name, email});
+        toast.success('OTP sent successfully')
         refetch();
-        navigate('/admin/userlist')
+        navigate('/register')
     } catch (err) {
         toast.error(err?.data?.message || err.error)
     }
@@ -42,49 +42,38 @@ const submitHandler = async (e) => {
 
   return (
     <>
-        <Link to='/admin/userlist' className="btn btn-light my-3">
-            Go Back
-        </Link>
+            <Link className='btn my-3' style={{fontSize:"18px",background:"#fff",color:"#0f172a",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} to='/register'>
+                <TiArrowBack />
+            </Link>
     <FormContainer>
-        <h1>Edit User</h1>
+        <h1>Sending OTP ...</h1>
         {loadingUpdate && <Loader />}
 
         {isLoading? <Loader /> : (
-            <Form onSubmit={submitHandler}>
+            <Form onSubmit={submitHandler} >
                 <Form.Group controlId='name' className='my-2'>
-                <Form.Label>Name</Form.Label>
+                <Form.Label></Form.Label>
                 <Form.Control 
                 type='name'
                 placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}>
+                value={"OTP sent from : resumebook.medicaps@gmail.com"}
+                onChange={(e) => setName()}>
                 </Form.Control>
                 </Form.Group>
-                <Form.Group controlId='email' className='my-2'>
-                <Form.Label>Email</Form.Label>
+                {/* <Form.Group controlId='email' className='my-2'>
+                <Form.Label></Form.Label>
                 <Form.Control 
                 type='email'
                 placeholder='Enter email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}>
+                value={"Return back to submit the OTP "}
+                onChange={(e) => setEmail()}>
                 </Form.Control>
                 </Form.Group>
-                
-               <Form.Group controlId='isAdmin' className='my-2'>
-                <Form.Check
-                type='checkbox'
-                label='Is Admin'
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}>
+                 */}
+                <Button disabled={isLoading} type='submit' variant='primary' style={{background:"#0f172a",marginRight:"20px"}} className='mt-2'>
+                 Back
+        </Button>
 
-                </Form.Check>
-               </Form.Group>
-
-                <Button
-                type='submit'
-                variant='primary'
-                className='my-2'
-                >Update</Button>
             </Form>
         )}
     </FormContainer>

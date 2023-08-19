@@ -10,14 +10,19 @@ import 'react-toastify/dist/ReactToastify.css'
 const App = () => {
   return (
   <>
+    <div style={{
+      backgroundImage: `url("https://www.transparenttextures.com/patterns/diagonales-decalees.png")`,
+      backgroundColor: "#ffffff",
+    }}>
     <Header />
     <main className="py-3">
-      <Container>
+      <Container style={{marginTop:"75px"}}>
         <Outlet />
       </Container>
     </main>
     <Footer />
     <ToastContainer />
+    </div> 
   </>
   )
 }

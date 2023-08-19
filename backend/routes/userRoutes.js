@@ -19,12 +19,12 @@ import { authUser,
     router.post('/logout', logoutUser);
     router
       .route('/profile')
-      .get(protect, getUserProfile)
-      .put(protect, updateUserProfile);
+      .get(getUserProfile)
+      .put(updateUserProfile);
     router
       .route('/:id')
       .delete(protect, admin, deleteUser)
-      .get(protect, admin, getUserById)
-      .put(protect, admin, updateUser);
+      .get(getUserById)
+      .put(updateUser);
 
 export default router;

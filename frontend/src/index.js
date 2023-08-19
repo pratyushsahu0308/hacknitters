@@ -36,24 +36,23 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomeScreen />} />
       <Route path='/product/:id' element={<ProductScreen />} />
+
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/login' element={<LoginScreen />} />
-      <Route path='/cart' element={<CartScreen />} />
+      <Route path='/favorites' element={<CartScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
 
       <Route path='' element={<PrivateRoutes />} >
         <Route path='/shipping' element={<ShippingScreen />} />
         <Route path='/payment' element={<PaymentScreen />} />
         <Route path='/placeorder' element={<PlaceOrderScreen />} />
-        <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
         {/* <Route path='/resume' element={<ResumeScreen />} /> */}
       </Route>
-
+        <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/OTP/:id/' element={<UserEditScreen />} />
       <Route path='' element={<AdminRoutes />} >
         <Route path='/admin/productlist' element={<ProductListScreen />} />
-        <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
-        <Route path='/admin/userlist' element={<UserListScreen />} />
-        <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
         {/* <Route path='/admin/orderlist' element={<OrderListScreen />} /> */}
       </Route>
     </Route>

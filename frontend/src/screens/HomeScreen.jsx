@@ -6,28 +6,29 @@ import axios from 'axios';
 import Loader from '../components/Loader';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import ProductCarousel from '../components/ProductCarousel';
-
+import CreateProduct from '../components/CreateProduct';
+import { useSelector } from 'react-redux';
 
 const HomeScreen = () => {
 
   const { data: products, isLoading, error } = useGetProductsQuery({
   });
-
+  const { userInfo } = useSelector((state) => state.auth);
   
   return (
     <>  
     {isLoading ? (<Loader />) : (
       <> 
-      <ProductCarousel />
-    <h1>Latest Products</h1>
+    <h1>Latest Books</h1>
     <Row>
         {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3} >
                 <Product product={product} />
             </Col>
         )
         )}
     </Row>
+    <CreateProduct />
     </>)}
     </>
   )

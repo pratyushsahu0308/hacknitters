@@ -8,7 +8,7 @@ const ProductCarousel = () => {
     const {data: product, isLoading} = useGetTopProductsQuery()
 
   return isLoading ? <Loader /> : (
-    <Carousel pause='hover' className='bg-primary mb-4'>
+    <Carousel pause='hover' className='bg-primary my-5'>
         {product.map(product => (
             <Carousel.Item key={product._id}>
                 <Link to={`/product/${product._id}`}>

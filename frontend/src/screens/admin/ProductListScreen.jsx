@@ -6,18 +6,19 @@ import Message from '../../components/Message'
 import Loader from '../../components/Loader'
 import { useGetProductsQuery, useCreateProductMutation,useDeleteProductMutation } from '../../slices/productsApiSlice'
 import {toast} from 'react-toastify';
+import { useNavigate } from 'react-router-dom'
 
 const ProductListScreen = () => {
     const { data: products, isLoading, error, refetch} = useGetProductsQuery();
     const [createProduct, {isLoading:loadingCreate}] = useCreateProductMutation();
     const [deleteProduct, {isLoading:loadingDelete}] = useDeleteProductMutation();
-
+    const navigate = useNavigate();
 const deleteHandler = async (id) => {
     if(window.confirm('Are you sure?')) {
         try {
             await deleteProduct(id);
             refetch();
-            toast.success('Product deleted');
+            toast.success('Book deleted');
         } catch (err) {
             toast.error(err?.data?.message || err.error);
         }
@@ -28,6 +29,7 @@ const createProductHandler = async () => {
         try {
             await createProduct();
             refetch();
+            navigate("/admin/product/:id/edit");
         } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
@@ -38,13 +40,9 @@ const createProductHandler = async () => {
     <>
         <Row className='align-items-center'>
             <Col>
-                <h1>Products</h1>
+                <h1>Books</h1>
             </Col>
-            <Col className='text-end'>
-                <Button className='btn-sm m-3' onClick={createProductHandler}>
-                    <FaEdit /> Create Product
-                </Button>
-            </Col>
+
         </Row>
         {loadingCreate && <Loader />}
         {loadingDelete && <Loader />}

@@ -1,6 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import nodemailer from 'nodemailer';
 
 const authUser = asyncHandler(async(req,res) => {
 
@@ -9,8 +10,8 @@ const authUser = asyncHandler(async(req,res) => {
     const user = await User.findOne({ email });
   
     if (user && await (user.matchPassword(password))) {
-        generateToken(res, user._id)
-        
+        generateToken(res, user._id);
+
       res.json({
         _id: user._id,
         name: user.name,
@@ -80,27 +81,35 @@ const getUserProfile = asyncHandler(async(req,res) => {
 })
 
 const updateUserProfile = asyncHandler(async(req,res) => {
-    const user = await User.findById(req.user._id);
 
-    if(user) {
-        user.name = req.body.name || user.name;
-        user.email = req.body.email || user.email;
-    
-    if(req.body.password) {
-        user.password = req.body.password;
-    }
-
-    const updatedUser = await user.save();
-
+    let mailTransporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port:465,
+      auth:{
+          user: "resumebook.medicaps@gmail.com",
+          pass: "xihxnykueijflsgz"
+      }
+  })
+  
+  let details = {
+      from: "resumebook.medicaps@gmail.com",
+      to: `${req.body.email}`,
+      subject: `Wellcome to ResumeBook ${req.body.name}`,
+      text: `Your OTP for creating account on ResumeBook is  ${req.body.password}`
+  }
+  
+  mailTransporter.sendMail(details,(err) => {
+      if(err){
+          console.log("error ", err)
+      }
+      else {
+          console.log("email has sent!")
+      }
+  })
     res.status(200).json({
-         _id: updatedUser._id,
-         name: updatedUser.name,
-         email: updatedUser.email,
-         isAdmin: updatedUser.isAdmin,
     })
-}else {
-    res.status(404);
-}
+
+console.log(req.body)
 })
 
 const getUsers = asyncHandler(async(req,res) => {
@@ -112,11 +121,16 @@ const getUserById = asyncHandler(async(req,res) => {
     const user = await User.findById(req.params.id);
 
     if(user) {
-      res.status(200).json(user);
+
+
+
+res.status(200).json(user);
+      
     } else {
       res.status(404);
       throw new Error('User not found');
     }
+    console.log(req.body)
 })
 
 const deleteUser = asyncHandler(async(req,res) => {
@@ -156,6 +170,7 @@ const updateUser = asyncHandler(async(req,res) => {
       throw new Error('User not found');
     }
 })
+
 
 export {
     authUser,

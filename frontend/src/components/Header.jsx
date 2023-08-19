@@ -1,8 +1,7 @@
   import React from 'react'
-  import { useNavigate } from 'react-router-dom';
+  import { Link, useNavigate } from 'react-router-dom';
   import { Badge, Navbar, Nav, Container, NavbarBrand, NavDropdown} from 'react-bootstrap';
-  import { FaBook, FaUser } from 'react-icons/fa';
-  import logo from '../assets/logo.png'
+  import { FaUser } from 'react-icons/fa';
   import {LinkContainer} from 'react-router-bootstrap'
   import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -31,19 +30,21 @@ import { resetCart } from '../slices/cartSlice';
 
     return (
       <header>
-        <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
-            <Container>
-                <Navbar.Brand>
-                  <img src={logo} style={{width: 25}}/> MediNotes
+        <Navbar fixed="top" style={{  boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)", zIndex:100, background: "#fff"}} data-bs-theme="light" expand="md" collapseOnSelect>
+            <Container >
+                <Navbar.Brand style={{fontFamily: "Raleway",fontWeight:700,color:"#0f172a",fontSize:"28px"}}>
+
+                  RESUME BOOK
+
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls='basic-navbar-nav' />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ms-auto">
-                      <LinkContainer to='/cart'>
-                        <Nav.Link><FaBook /> Cart
+                    <Nav className="ms-auto" style={{fontWeight:500,fontSize:"18px"}}>
+                      <LinkContainer to='/favorites'>
+                        <Nav.Link>❤️ Favorites
                         {
                           cartItems.length>0 && (
-                            <Badge pill bg='success' style={{marginLeft: '5px'}}>
+                            <Badge pill  style={{marginLeft: '5px',background:"#0f172a"}}>
                                 {cartItems.reduce((a,c) => a + c.qty,0)}
                             </Badge>
                           )
@@ -52,9 +53,6 @@ import { resetCart } from '../slices/cartSlice';
                         </LinkContainer>
                         {userInfo ? (
                           <NavDropdown title={userInfo.name} id='username'>
-                            <LinkContainer to='/profile'>
-                              <NavDropdown.Item>Profile</NavDropdown.Item>
-                            </LinkContainer>
                             <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                           </NavDropdown>
                         ) : (<LinkContainer to='/login'>
@@ -63,13 +61,7 @@ import { resetCart } from '../slices/cartSlice';
                         {userInfo && userInfo.isAdmin && (
                             <NavDropdown title='Admin' id='adminmenu'>
                               <LinkContainer to='/admin/productlist'>
-                                <NavDropdown.Item>Products</NavDropdown.Item>
-                              </LinkContainer>
-                              <LinkContainer to='/admin/userlist'>
-                                <NavDropdown.Item>Users</NavDropdown.Item>
-                              </LinkContainer>
-                              <LinkContainer to='/admin/orderList'>
-                                <NavDropdown.Item>Orders</NavDropdown.Item>
+                                <NavDropdown.Item>Books</NavDropdown.Item>
                               </LinkContainer>
                             </NavDropdown>
                         )}

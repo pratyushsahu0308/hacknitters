@@ -2,11 +2,21 @@ import { Card } from "react-bootstrap";
 import React from 'react'
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
+const hover = (e) => {
+  e.target.style.transform = "scale(1.05)";
+  e.target.style.transition = "0.5s";
+}
+const hoverOut = (e) => {
+  e.target.style.transform = "scale(1)";
+  e.target.style.transition = "0.5s";
+}
+
 const Product = ({ product}) => {
   return ( 
+    <div onMouseOver={hover} onMouseOut={hoverOut}>
     <Card className="my-3 p-3 rounded">
       <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} variant="top" />
+        <Card.Img style={{height:"230px",objectFit:"cover",}} src={product.image} variant="top"/>
       </Link>
 
       <Card.Body>
@@ -25,7 +35,7 @@ const Product = ({ product}) => {
         </Card.Text>
       </Card.Body>
     </Card>
- 
+    </div>
   )
 }
 
