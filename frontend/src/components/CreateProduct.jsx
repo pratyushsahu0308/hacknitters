@@ -18,7 +18,7 @@ const CreateProduct = () => {
 
 const editProductHandler = async () => {
     try {
-        navigate(`/admin/product/${(products.find(item => item.user === userInfo._id))._id}/edit`);
+        navigate(`/book/${(products.find(item => item.user === userInfo._id))._id}/edit`);
     } catch (err) {
         toast.error("Book not found")
     }

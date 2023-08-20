@@ -22,8 +22,8 @@ const product = new Product({
     price: 0,
     user: req.user._id,
     image: 'images/sample.jpg',
-    brand: 'headline',
-    category: 'bio',
+    brand: 'Headline',
+    category: 'Upload Resume',
     countInstock: 1,
     numReviews: 0,
     description: 'Sample description'

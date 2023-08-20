@@ -29,7 +29,7 @@ const createProductHandler = async () => {
         try {
             await createProduct();
             refetch();
-            navigate("/admin/product/:id/edit");
+            navigate("book/:id/edit");
         } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
@@ -68,7 +68,7 @@ const createProductHandler = async () => {
                                 <td>{product.category}</td>
                                 <td>{product.brand}</td>
                                 <td>
-                                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                                    <LinkContainer to={`/book/${product._id}/edit`}>
                                         <Button varient='light' className='btn-sm mx-2'><FaEdit /></Button>
                                     </LinkContainer>
                                         <Button varient='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}><FaTrash /></Button>

@@ -5,7 +5,7 @@ import {Form,Button} from 'react-bootstrap'
 import Loader from '../../components/Loader'
 import FormContainer from '../../components/FormContainer'
 import {toast} from 'react-toastify'
-import { useUpdateProductMutation, useGetProductDetailsQuery,useUploadProductImageMutation } from '../../slices/productsApiSlice'
+import { useUpdateProductMutation, useGetProductDetailsQuery,useUploadProductImageMutation,useUploadProductPdfMutation } from '../../slices/productsApiSlice'
 import Meta from '../../components/Meta'
 import { useSelector, useDispatch } from 'react-redux';
 import CheckoutSteps from '../../components/CheckoutSteps'
@@ -25,6 +25,7 @@ const {data:product,isLoading,refetch,error} =useGetProductDetailsQuery(productI
 const [updateProduct,{isLoading: loadingUpdate}] = useUpdateProductMutation();
 
 const [uploadProductImage, {isLoading: loadingUpload}] =useUploadProductImageMutation();
+const [uploadProductPdf, {isLoading: loadingPdf}] =useUploadProductPdfMutation();
 
 const navigate = useNavigate();
 
@@ -68,12 +69,24 @@ const uploadFileHandler = async (e) => {
         toast.success(res.message);
         setImage(res.image);
     } catch (err) {
-        toast.error(err?.data?.message || err.error)
+        toast.error(err?.data?.message || "error")
+    }
+}
+const uploadResumeHandler = async (e) => {
+    const formData = new FormData();
+    formData.append('resume',e.target.files[0]);
+    try {
+        const res = await uploadProductPdf(formData).unwrap();
+        toast.success(res.message);
+        setCategory(res.image);
+    } catch (err) {
+        toast.error(err?.data?.message || "error")
     }
 }
 
   return (
     <>
+    <Meta title="Edit Screen" />
             <Link className='btn my-3' style={{fontSize:"18px",background:"#fff",color:"#0f172a",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} to='/'>
                 <TiArrowBack />
             </Link>
@@ -84,26 +97,10 @@ const uploadFileHandler = async (e) => {
 
         {isLoading? <Loader /> : (
             <Form onSubmit={submitHandler}>
-                <Form.Group controlId='name' className='my-2'>
-                <Form.Label>Name</Form.Label>
-                <Form.Control 
-                type='name'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(userInfo.name)}>
-                </Form.Control>
-                </Form.Group>
-
-                
-                <Form.Group controlId='image' className='my-2'>
-                    <Form.Label>Image (296 X 230) recommended</Form.Label>
-                    <Form.Control type='text' placeholder='Enter image url ' value={image} onChange={(e) => setImage}></Form.Control>
-                    <Form.Control type='file' label='Choose file' onChange={uploadFileHandler}></Form.Control>
-                </Form.Group>
-                {loadingUpload && <Loader />}
-                <Form.Group controlId='brand' className='my-2'>
+                                <Form.Group controlId='brand' className='my-2'>
                 <Form.Label>Headline</Form.Label>
                 <Form.Control 
+                required
                 type='text'
                 placeholder='Enter Headline'
                 value={brand}
@@ -111,17 +108,25 @@ const uploadFileHandler = async (e) => {
                 </Form.Control>
                 </Form.Group>
                 
-                <Form.Group controlId='category' className='my-2'>
-                <Form.Label>Bio</Form.Label>
-                <Form.Control 
-                type='text'
-                placeholder='Enter Bio'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}>
-                </Form.Control>
+                
+                <Form.Group controlId='image' className='my-2'>
+                    <Form.Label>Image (300 X 300) recommended</Form.Label>
+                    <Form.Control required type='text' placeholder='Enter image url ' value={image} onChange={(e) => setImage}></Form.Control>
+                    <Form.Control type='file' label='Choose file' onChange={uploadFileHandler}></Form.Control>
                 </Form.Group>
+                {loadingUpload && <Loader />}
+                
+                <Form.Group controlId='image' className='my-2'>
+                    <Form.Label>Resume (jpg/jpeg)</Form.Label>
+                    <Form.Control required type='text' placeholder='Enter image url ' value={category} onChange={(e) => setCategory}></Form.Control>
+                    <Form.Control required type='file' label='Choose file' onChange={uploadResumeHandler}></Form.Control>
+                </Form.Group>
+                {loadingPdf && <Loader />}
+
+
 
                 <Button
+                disabled={product.user!==userInfo._id}
                 type='submit'
                 variant='primary'
                 className='my-2'

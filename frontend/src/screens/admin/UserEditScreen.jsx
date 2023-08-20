@@ -8,6 +8,7 @@ import {toast} from 'react-toastify'
 import { useUpdateUserMutation, useGetUserDetailsQuery,useProfileMutation } from '../../slices/usersApiSlice'
 import { TiArrowBack } from 'react-icons/ti'
 
+
 const UserEditScreen = () => {
     const {id: userId} = useParams();
 
@@ -42,6 +43,7 @@ const submitHandler = async (e) => {
 
   return (
     <>
+
             <Link className='btn my-3' style={{fontSize:"18px",background:"#fff",color:"#0f172a",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} to='/register'>
                 <TiArrowBack />
             </Link>

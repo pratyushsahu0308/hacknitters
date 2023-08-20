@@ -8,6 +8,7 @@ import { useGetProductsQuery } from '../slices/productsApiSlice';
 import ProductCarousel from '../components/ProductCarousel';
 import CreateProduct from '../components/CreateProduct';
 import { useSelector } from 'react-redux';
+import Meta from '../components/Meta';
 
 const HomeScreen = () => {
 
@@ -17,6 +18,7 @@ const HomeScreen = () => {
   
   return (
     <>  
+    <Meta title="Resume Book" />
     {isLoading ? (<Loader />) : (
       <> 
     <h1>Latest Books</h1>

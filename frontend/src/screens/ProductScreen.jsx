@@ -16,12 +16,15 @@ import Message from '../components/Message'
 import Meta from '../components/Meta.jsx';
 import { FaHeart } from 'react-icons/fa';
 import {TiArrowBack} from 'react-icons/ti';
+import ResumeViewer from '../components/ResumeViewer.jsx';
+
 const ProductScreen = (props) => {
 
     const {id:productId} = useParams();
     const [qty, setQty] = useState(1);
     const [rating,setRating] = useState(0);
     const [comment, setComment] =useState('');
+    const [showResume, setShowResume] =useState();
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -53,21 +56,25 @@ const {userInfo} = useSelector((state) => state.auth);
           toast.error(err?.data?.message || err.error);
         }
       };
-
+      
+      const showResumeHandler = (e) => {
+          {showResume ? setShowResume(false) : setShowResume(true)};
+      };
 
       
     return (
         <>
             <Link className='btn my-3' style={{fontSize:"18px",background:"#fff",color:"#0f172a",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} to='/'>
-                <TiArrowBack />
+                <TiArrowBack /> 
             </Link>
             {isLoading ? (<Loader />) : (
             <>
             <Meta title={product.name} /><Row >
-                <Col md={4} className='m-2'>
-                    <Image src={product.image} alt={product.name} style={{boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} fluid />
+                <Col md={4} className='m-2 text-center'>
+                    <Image src={product.image} alt={product.name} style={{borderRadius:"50%",width:"300px",height:"300px",objectFit:"cover",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)",}} fluid />
                 </Col>
                 <Col md={7} className='m-1'>
+              <Card className='m-2'>
                   <Row className='m-2'>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
@@ -76,22 +83,29 @@ const {userInfo} = useSelector((state) => state.auth);
                         <ListGroup.Item>
                              {product.brand}
                         </ListGroup.Item>
-                       <ListGroup.Item>
-                            {product.category}
-                       </ListGroup.Item>
+
                     </ListGroup>
                     </Row>
+                    </Card>
+              
                     <Row>
                     <Card className='m-2'>
                 <ListGroup variant='flush'>
                   
                   <ListGroup.Item>
-                    <Row>
-                      <Col><Rating value={product.rating} text={`${product.numReviews} reviews`} /></Col>
+                    <Row className='text-center'>
+                      <Col xs={4}>
+                        
+                        <Button
+                        className='btn-block btn-lg'
+                        style={{background:"#0f172a"}}
+                        type='button'
+                        onClick={showResumeHandler}
+                    >Resume</Button>
 
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item className='text-end'>
+                      </Col>
+                      <Col xs={6} className='my-2' ><Rating value={product.rating} text={`${product.numReviews} reviews` } /></Col>
+                        <Col xs={2}>
                     <Button
                         className='btn-block btn-lg'
                         style={{background:"#fff"}}
@@ -100,12 +114,16 @@ const {userInfo} = useSelector((state) => state.auth);
                     >
                       <FaHeart style={{color:"#800020"}} />
                     </Button>
+                    </Col>
+                    </Row>
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
                     </Row>
                 </Col>
           </Row>
+{showResume && (
+<Container className='my-5'><ResumeViewer src={product.category} /></Container>)}
         <Container style={{background:"#fff",borderRadius:"2%",boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)"}}>
           <Row className='review my-4'>
             <Col md={12} className='p-3'>

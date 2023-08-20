@@ -16,7 +16,6 @@ const [password,setPassword] = useState("1234");
 
 const dispatch = useDispatch();
 
-
 const [updateProfile, {isLoading: loadingUpdateProfile}] = useProfileMutation();
 
 
@@ -27,7 +26,7 @@ const submitHandler = async (e) => {
         try {
             const res = await updateProfile({name, email, password})
 
-            toast.success('Profile updated successfully')
+            toast.success('OTP sent successfully')
         } catch (err) {
             toast.error(err?.data.message || err.error)
         }

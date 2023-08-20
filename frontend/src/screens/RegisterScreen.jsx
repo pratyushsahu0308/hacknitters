@@ -9,6 +9,7 @@ import { useRegisterMutation,useProfileMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -16,7 +17,8 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [image,setImage] = useState(''); 
-  const [OTP,setOTP] = useState(123456); 
+  const [disabled,setDisabled] = useState(false); 
+  const [OTP,setOTP] = useState(); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [createProduct, {isLoading:loadingCreate}] = useCreateProductMutation();
@@ -46,6 +48,7 @@ const otpHandler = async (e) => {
   try {
     await updateProfile({name, email, password:passKey})
     setPass(passKey)
+    setDisabled(true)
           toast.success('OTP sent successfully')
       } catch (err) {
           toast.error(err?.data.message || err.error)
@@ -63,7 +66,7 @@ const otpHandler = async (e) => {
         dispatch(setCredentials({ ...res }));
         const createdProduct = await createProduct();
 
-        navigate(`/admin/product/${createdProduct.data._id}/edit`);
+        navigate(`/book/${createdProduct.data._id}/edit`);
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
@@ -73,12 +76,14 @@ const otpHandler = async (e) => {
   return (
     <div>
     <FormContainer>
+    <Meta title="Register to Resume Book" />
       <CheckoutSteps step1 />
       <h1 style={{color:"#0f172a"}}>Register</h1>
       <Form onSubmit={otpHandler}>
         <Form.Group className='my-2' controlId='name'>
           <Form.Label>Name</Form.Label>
           <Form.Control
+          
             type='name'
             placeholder='Enter name'
             value={name}
@@ -90,10 +95,11 @@ const otpHandler = async (e) => {
         <Form.Group className='my-2' controlId='email'>
           <Form.Label>Email Address</Form.Label>
           <Form.Control
+          disabled={disabled}
             type='email'
             placeholder='Enter email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.toLowerCase())}
           ></Form.Control>
         </Form.Group>
           </Col>

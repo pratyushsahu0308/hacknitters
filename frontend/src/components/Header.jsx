@@ -33,9 +33,9 @@ import { resetCart } from '../slices/cartSlice';
         <Navbar fixed="top" style={{  boxShadow: "0px 0px 30px rgba(127, 137, 161, 0.25)", zIndex:100, background: "#fff"}} data-bs-theme="light" expand="md" collapseOnSelect>
             <Container >
                 <Navbar.Brand style={{fontFamily: "Raleway",fontWeight:700,color:"#0f172a",fontSize:"28px"}}>
-
-                  RESUME BOOK
-
+                  <LinkContainer to='/'>
+                    <Nav.Link>RESUME BOOK</Nav.Link>
+                  </LinkContainer>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls='basic-navbar-nav' />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -62,6 +62,9 @@ import { resetCart } from '../slices/cartSlice';
                             <NavDropdown title='Admin' id='adminmenu'>
                               <LinkContainer to='/admin/productlist'>
                                 <NavDropdown.Item>Books</NavDropdown.Item>
+                              </LinkContainer>
+                              <LinkContainer to='/admin/userlist'>
+                                <NavDropdown.Item>Users</NavDropdown.Item>
                               </LinkContainer>
                             </NavDropdown>
                         )}

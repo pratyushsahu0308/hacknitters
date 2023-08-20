@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
-
+import Meta from '../components/Meta';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
@@ -44,6 +44,7 @@ const LoginScreen = () => {
 
   return (
     <FormContainer>
+      <Meta title="Sign in to Resume Book" />
       <h1 style={{color:"#0f172a"}}>Sign In</h1>
 
       <Form onSubmit={submitHandler}>
@@ -53,7 +54,7 @@ const LoginScreen = () => {
             type='email'
             placeholder='Enter email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.toLowerCase())}
           ></Form.Control>
         </Form.Group>
 

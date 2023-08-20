@@ -37,12 +37,13 @@ router.post('/', (req, res) => {
   uploadSingleImage(req, res, function (err) {
     if (err) {
       res.status(400).send({ message: err.message });
-    }
+    }else {
 
     res.status(200).send({
       message: 'Image uploaded successfully',
       image: `/${req.file.path}`,
     });
+  }
   });
 });
 
