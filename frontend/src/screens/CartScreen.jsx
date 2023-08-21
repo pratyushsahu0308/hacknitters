@@ -51,7 +51,7 @@ const CartScreen = () => {
                     <Image src={item.image} alt={item.name} fluid rounded style={{height:"100px"}} />
                   </Col>
                   <Col md={6} xs={9} className='my-4'>
-                    <Link to={`/product/${item._id}`} className='my-3'><h4>{item.name}</h4></Link>
+                    <Link to={`/book/${item._id}`} className='my-3'><h4>{item.name}</h4></Link>
                   </Col>
 
                   <Col md={2} xs={3} className='text-end my-3'>

@@ -61,6 +61,7 @@ const otpHandler = async (e) => {
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
+      if(window.confirm('Are details entered correct?. These cannot be changed later')){
       try {
         const res = await register({ name, email, password }).unwrap();
         dispatch(setCredentials({ ...res }));
@@ -71,7 +72,8 @@ const otpHandler = async (e) => {
         toast.error(err?.data?.message || err.error);
       }
     }
-  };
+  }
+}
 
   return (
     <div>
