@@ -35,10 +35,10 @@ const createProductHandler = async () => {
             <Col className='text-end'>
                 { !userInfo ? (<>
                 <Button className='btn-lg m-3' style={{background:"#0f172a",position:"fixed",bottom:"5px",right:"5px"}} onClick={createProductHandler}>
-                     <FaEdit /> Create Book
+                     <FaEdit /> subscribe
                 </Button></>) :(<>
-                <Button className='btn-lg m-3' style={{background:"#0f172a",position:"fixed",bottom:"5px",right:"5px"}} onClick={editProductHandler}>
-                     <FaEdit /> Edit Book
+                <Button className='btn-lg m-3' style={{background:"#0f172a",position:"fixed",bottom:"5px",right:"5px"}} onClick={createProductHandler}>
+                     <FaEdit /> subscribe
                 </Button></>)}
 
             </Col>

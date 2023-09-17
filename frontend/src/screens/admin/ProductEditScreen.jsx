@@ -92,7 +92,7 @@ const uploadResumeHandler = async (e) => {
             </Link>
     <FormContainer>
     <CheckoutSteps step1 step2 />
-        <h1>Update Book</h1>
+        <h1>Enter Details</h1>
         {loadingUpdate && <Loader />}
 
         {isLoading? <Loader /> : (
@@ -116,12 +116,7 @@ const uploadResumeHandler = async (e) => {
                 </Form.Group>
                 {loadingUpload && <Loader />}
                 
-                <Form.Group controlId='image' className='my-2'>
-                    <Form.Label>Resume (jpg/jpeg)</Form.Label>
-                    <Form.Control required type='text' placeholder='Enter image url ' value={category} onChange={(e) => setCategory}></Form.Control>
-                    <Form.Control required type='file' label='Choose file' onChange={uploadResumeHandler}></Form.Control>
-                </Form.Group>
-                {loadingPdf && <Loader />}
+                
 
 
 

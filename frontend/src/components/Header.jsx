@@ -34,14 +34,14 @@ import { resetCart } from '../slices/cartSlice';
             <Container >
                 <Navbar.Brand style={{fontFamily: "Raleway",fontWeight:700,color:"#0f172a",fontSize:"28px"}}>
                   <LinkContainer to='/'>
-                    <Nav.Link>RESUME BOOK</Nav.Link>
+                    <Nav.Link>WOOL HARBOR</Nav.Link>
                   </LinkContainer>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls='basic-navbar-nav' />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto" style={{fontWeight:500,fontSize:"18px"}}>
                       <LinkContainer to='/favorites'>
-                        <Nav.Link>❤️ Favorites
+                        <Nav.Link>Daily News
                         {
                           cartItems.length>0 && (
                             <Badge pill  style={{marginLeft: '5px',background:"#0f172a"}}>

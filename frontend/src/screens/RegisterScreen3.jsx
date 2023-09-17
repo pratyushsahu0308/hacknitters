@@ -78,9 +78,9 @@ const otpHandler = async (e) => {
   return (
     <div>
     <FormContainer>
-
-      <CheckoutSteps step1 />
-      <h1 style={{color:"#0f172a"}}>Register as Shepherd</h1>
+ 
+      <CheckoutSteps step3 />
+      <h1 style={{color:"#0f172a"}}>Register as service provider</h1>
       <Form onSubmit={otpHandler}>
         <Form.Group className='my-2' controlId='name'>
           <Form.Label>Name</Form.Label>
@@ -88,26 +88,6 @@ const otpHandler = async (e) => {
           
             type='name'
             placeholder='Enter name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className='my-2' controlId='Pin Code'>
-          <Form.Label>Pin Code</Form.Label>
-          <Form.Control
-          
-            type='name'
-            placeholder='Enter Pin Code'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className='my-2' controlId='Contact No'>
-          <Form.Label>Contact No</Form.Label>
-          <Form.Control
-          
-            type='Contact No'
-            placeholder='Enter Contact No'
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>

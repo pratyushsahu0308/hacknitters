@@ -14,6 +14,9 @@ import Meta from '../components/Meta';
 const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [gst, setGst] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [contact, setContact] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [image,setImage] = useState(''); 
@@ -79,8 +82,8 @@ const otpHandler = async (e) => {
     <div>
     <FormContainer>
 
-      <CheckoutSteps step1 />
-      <h1 style={{color:"#0f172a"}}>Register as Shepherd</h1>
+      <CheckoutSteps step2 />
+      <h1 style={{color:"#0f172a"}}>Register as Industrialist</h1>
       <Form onSubmit={otpHandler}>
         <Form.Group className='my-2' controlId='name'>
           <Form.Label>Name</Form.Label>
@@ -98,8 +101,8 @@ const otpHandler = async (e) => {
           
             type='name'
             placeholder='Enter Pin Code'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={pincode}
+            onChange={(e) => setPincode(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Form.Group className='my-2' controlId='Contact No'>
@@ -108,8 +111,18 @@ const otpHandler = async (e) => {
           
             type='Contact No'
             placeholder='Enter Contact No'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group className='my-2' controlId='GST NO'>
+          <Form.Label>GST NO</Form.Label>
+          <Form.Control
+          
+            type='GST NO'
+            placeholder='GST NO'
+            value={gst}
+            onChange={(e) => setGst(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Row>

@@ -29,7 +29,8 @@ import ProductEditScreen from './screens/admin/ProductEditScreen';
 import UserListScreen from './screens/admin/UserListScreen';
 import { HelmetProvider } from 'react-helmet-async';
 // import ResumeScreen from './screens/ResumeScreen';
-
+import RegisterScreen2 from './screens/RegisterScreen2';
+import RegisterScreen3 from './screens/RegisterScreen3';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
@@ -40,6 +41,8 @@ const router = createBrowserRouter(
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/favorites' element={<CartScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
+      <Route path='/registerindustrialist' element={<RegisterScreen2 />} />
+      <Route path='/registerserviceprovider' element={<RegisterScreen3 />} />
 
 
       <Route path='' element={<PrivateRoutes />} >
